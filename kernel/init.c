@@ -1,14 +1,14 @@
 #include "kernel.h"
 
-struct MEMMAN *memman;
-int init_all(void){
+struct MEMMAN *memman;		//Structure of memory manager
+int init_all(void){		//Initialize all hardware and software
 	init_mem();
 	init_hw();
 	init_task();
 	return 0;
 }
 
-int init_hw(void){
+int init_hw(void){		//Initialize hardware
 	init_pic();
 	init_palette();
 	init_gdtidt();
@@ -16,7 +16,7 @@ int init_hw(void){
 	return 0;
 }
 
-int init_mem(void){
+int init_mem(void){		//Initialize memory
 	memman = (struct MEMMAN *) MEMMAN_ADDR;
 	unsigned int memtotal;
 	memtotal = memtest(0x00400000, 0xffffffff);
@@ -26,7 +26,7 @@ int init_mem(void){
 	return 0;
 }
 
-int init_task(void){
+int init_task(void){		//Initialize task manager
 	task_init(memman);
 	return 0;
 }
